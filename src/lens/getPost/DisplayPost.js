@@ -218,6 +218,7 @@ export default function DisplayPublications({ pub }) {
                                    data = {pub}
                                    />
                                 </Menu>
+                                <img style={{height:"215px"}} src={pub?.metadata?.media[0]?.original?.url} ></img>
                                 <CardContent>
                                     <Typography variant="body2" color="text.secondary">
                                         <h2>{pub?.metadata?.content}</h2>

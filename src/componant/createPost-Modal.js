@@ -24,10 +24,11 @@ export default function UploadModal() {
 
     const lensAuthContext = React.useContext(LensAuthContext);
     const { profile, login, update, setUpdate } = lensAuthContext;
-// console.log(profile,'profile');
+    // console.log(profile,'profile');
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [file, setFile] = React.useState("");
+    const [amount, setAmount] = React.useState();
     const [loading, setLoading] = React.useState(false);
 
     const handleUploadImage = async (e) => {
@@ -50,18 +51,19 @@ export default function UploadModal() {
             const postData = {
                 title: title,
                 photo: file,
+                amount: amount,
                 description: description,
                 login: login,
                 name: profile.handle,
                 profile: profile
             }
             let res;
-            if(profile?.dispatcher?.canUseRelay){
-                res = await createPostViaDispatcher(postData); 
-            }else{
-            res = await createPost(postData);
+            if (profile?.dispatcher?.canUseRelay) {
+                res = await createPostViaDispatcher(postData);
+            } else {
+                res = await createPost(postData);
             }
-            if(res){
+            if (res) {
                 setUpdate(!update);
                 setFile("");
                 setTitle("");
@@ -81,13 +83,17 @@ export default function UploadModal() {
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3} type="text" placeholder="description" className="take-note" autoFocus="autofocus " /><br /><br />
 
-
             <input
+                onChange={(e) => setAmount(e.target.value)}
+                type="number" placeholder="amount" className="title" />
+            <br></br>
+            <br></br>
+
+            <input type="file"
                 onChange={(e) => handleUploadImage(e)}
-                type="file"
-                name="file"
-                id="file"
-                className="input-file d-none" />
+            >
+            </input>
+
             <label
                 htmlFor="file"
                 style={{ width: '100%', cursor: 'pointer' }}

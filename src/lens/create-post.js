@@ -32,11 +32,17 @@ export const createPost = async (postData) => {
             content: postData.title,
             locale: 'en-US',
             external_url: null,
-            mainContentFocus: "TEXT_ONLY",
+            mainContentFocus: "IMAGE",
             image: null,
             imageMimeType: null,
             name: postData.name ? postData.name : postData.handle,
             attributes: [],
+            media: [
+                {
+                    item: postData.photo,
+                    type: 'image/jpeg'
+                }
+            ],
             appId: 'drvlens',
         });
 
@@ -47,15 +53,13 @@ export const createPost = async (postData) => {
             profileId,
             contentURI: `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`,
             collectModule: {
-
-                // freeCollectModule: { followerOnly: true },
-
-                feeCollectModule: {
+                limitedFeeCollectModule: {
+                    collectLimit:"12",
                     amount: {
                         currency: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
-                        value: "0.001"
+                        value: postData.amount
                     },
-                    recipient: "0xF7B0d150834bdb5A0B3278564D1c94d2d1d531c5",
+                    recipient: address,
                     referralFee: 0,
                     followerOnly: false
                 }
