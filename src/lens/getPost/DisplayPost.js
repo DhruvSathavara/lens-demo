@@ -16,6 +16,7 @@ import ReporrtModal from '../ReportPublication/report-modal';
 import { deletePublicaton } from '../DeletePublication/delete-publication-type-data';
 
 export default function DisplayPublications({ pub }) {
+    // console.log(pub?.collectModule?.amount?.value,'pub data');
     const [pid, setPid] = useState(pub?.id);
     const [comment, setComment] = useState("");
     const [likeCount, setLikeCount] = useState(0);
