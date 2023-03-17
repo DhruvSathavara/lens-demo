@@ -4,7 +4,7 @@ import { create } from 'ipfs-http-client';
 import { Button, CircularProgress } from "@mui/material";
 import { LensAuthContext } from "../context/LensContext";
 import { createPost, createPostViaDispatcher } from "../lens/create-post";
-
+console.log(process.env.REACT_APP_INFURA_PROJECT_KEY, process.env.REACT_APP_INFURA_APP_SECRET_KEY)
 const auth =
     "Basic " +
     Buffer.from(
@@ -29,12 +29,14 @@ export default function UploadModal() {
     const [description, setDescription] = React.useState("");
     const [file, setFile] = React.useState("");
     const [amount, setAmount] = React.useState();
+    const [number, setNumber] = React.useState();
     const [loading, setLoading] = React.useState(false);
 
     const handleUploadImage = async (e) => {
         const file = e.target.files[0];
         const ipfsResult = await client.add(file);
         const imageURI = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
+        console.log(imageURI,'img link');
         setFile(imageURI);
 
     }
@@ -55,7 +57,8 @@ export default function UploadModal() {
                 description: description,
                 login: login,
                 name: profile.handle,
-                profile: profile
+                profile: profile,
+                number:number
             }
             let res;
             if (profile?.dispatcher?.canUseRelay) {
@@ -86,6 +89,11 @@ export default function UploadModal() {
             <input
                 onChange={(e) => setAmount(e.target.value)}
                 type="number" placeholder="amount" className="title" />
+            <br></br>
+            <br></br>
+            <input
+                onChange={(e) => setNumber(e.target.value)}
+                type="number" placeholder="number of NFTs" className="title" />
             <br></br>
             <br></br>
 

@@ -54,7 +54,7 @@ export const createPost = async (postData) => {
             contentURI: `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`,
             collectModule: {
                 limitedFeeCollectModule: {
-                    collectLimit:"12",
+                    collectLimit:postData.number,
                     amount: {
                         currency: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
                         value: postData.amount
@@ -137,7 +137,13 @@ export const createPostViaDispatcher = async (postData) => {
             imageMimeType: null,
             name: postData.name ? postData.name : postData.handle,
             attributes: [],
-            mainContentFocus: "TEXT_ONLY",
+            mainContentFocus: "IMAGE",
+            media: [
+                {
+                    item: postData.photo,
+                    type: 'image/jpeg'
+                }
+            ],
             appId: 'drvlens',
             animation_url: null,
         });
@@ -148,7 +154,16 @@ export const createPostViaDispatcher = async (postData) => {
             profileId,
             contentURI: `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`,
             collectModule: {
-                freeCollectModule: { followerOnly: true },
+                limitedFeeCollectModule: {
+                    collectLimit:postData.number,
+                    amount: {
+                        currency: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
+                        value: postData.amount
+                    },
+                    recipient: address,
+                    referralFee: 0,
+                    followerOnly: false
+                }
             },
             referenceModule: {
                 followerOnlyReferenceModule: false

@@ -39,8 +39,8 @@ export const LensAuthContextProvider = (props) => {
                     pubArry.push(result[0][i]);
                 }
                 let responce = await getPublicationByLatest();
-                // console.log(responce);
-                // console.log(responce.data.explorePublications.items);
+                console.log(responce);
+                console.log(responce.data.explorePublications.items);
                 for (let i = 0; i < responce.data.explorePublications.items.length; i++) {
                     pubArry.push(responce.data.explorePublications.items[i]);
                 }
@@ -60,15 +60,7 @@ export const LensAuthContextProvider = (props) => {
 
     }, [userAdd, update, updatePro]);
 
-    async function getPosts() {
-        const data = await getPublicationByLatest();
-        const latestPosts = data.data && data.data.explorePublications.items.map((e) => {
-            // array.push(e);
-            console.log(e, 'explore');
-            return e;
-        })
-        // setUserPosts(latestPosts);
-    }
+   
 
 
     const ENABLE_CURRANCY_MOUDLE = `

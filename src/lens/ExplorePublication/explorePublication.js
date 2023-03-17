@@ -381,8 +381,8 @@ export const explorePublications = (explorePublicationQueryRequest) => {
     const query = {
       "sortCriteria": "LATEST",
       "publicationTypes": ['POST'],
-    //   "sources": ["superfun"],
-      "limit": 20, 
+      "sources": ["drvlens"],
+      "limit": 50, 
     } 
     const result = await explorePublications(query);
     return result;

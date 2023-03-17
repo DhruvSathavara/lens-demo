@@ -367,6 +367,7 @@ const getPublicationsRequest = (request) => {
 export const publicationsByProfilId = async (id) => {
   const request = {
     profileId: id,
+    sources:["drvlens"],
   };
   const publications = await getPublicationsRequest(request);
   return [publications.data.publications.items];
@@ -376,13 +377,13 @@ export const publicationsByProfilId = async (id) => {
 export const collectedPubByAddress = async (id) => {
   const request = {
     collectedBy: await getAddress(),
-    publicationTypes: ["POST","COMMENT"],
-    sources: ['drvlens'],
+    publicationTypes: ["POST"],
+    sources: ["drvlens"],
 
   };
   const publications = await getPublicationsRequest(request);
   console.log(publications,"test");
-  return [publications.data.publications.items];
+  return [publications?.data?.publications?.items];
 }
 
 
